@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet } from "react-native";
+import { AppNavigation } from "./src/infrastructure/navigation/core.navigation";
+import { ThemeProvider } from "styled-components/native";
+import {
+  useFonts as useRalewayFont,
+  Raleway_900Black,
+} from "@expo-google-fonts/raleway";
+import { theme } from "./src/infrastructure/theme";
 
 export default function App() {
+  const [isFontsLoaded] = useRalewayFont({ Raleway_900Black });
+  console.log({ isFontsLoaded });
+
+  if (!isFontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Text>Looks fine...</Text>
+    <ThemeProvider theme={theme}>
+      <AppNavigation />
       <StatusBar style="auto" />
-    </View>
+    </ThemeProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
